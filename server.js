@@ -5,6 +5,7 @@ const app = express();
 const cors = require("cors");
 
 const userRoutes = require("./routes/user");
+const blogRoutes = require("./routes/blog");
 
 app.use(cors());
 app.use(express.json());
@@ -15,6 +16,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/auth/", userRoutes);
+app.use("/blog/", blogRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI)
