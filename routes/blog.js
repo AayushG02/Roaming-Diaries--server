@@ -7,16 +7,18 @@ const {
   editBlog,
   deleteAllBlogs,
   deleteSingleBlog,
+  getByCategory,
 } = require("../controllers/blogController");
 const requireAuth = require("../middleware/requireAuth");
 
 router.use(requireAuth);
 
 router.get("/all", getAllBlogs);
-router.get("/:id", getSingleBlog);
+router.get("/category/:category", getByCategory);
+router.get("/:slug", getSingleBlog);
 router.post("/create", createBlog);
-router.put("/:id", editBlog);
-router.delete("/all", deleteAllBlogs)
-router.delete("/:id", deleteSingleBlog)
+router.put("/:slug", editBlog);
+router.delete("/all", deleteAllBlogs);
+router.delete("/:slug", deleteSingleBlog);
 
 module.exports = router;

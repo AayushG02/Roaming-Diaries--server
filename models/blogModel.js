@@ -7,6 +7,10 @@ const blogSchema = new Schema(
       type: String,
       required: true,
     },
+    slug: {
+      type: String,
+      required: true,
+    },
     title: {
       type: String,
       required: true,
@@ -26,5 +30,18 @@ const blogSchema = new Schema(
   },
   { timestamps: true }
 );
+
+blogSchema.statics.uniqueSlug = async function (proposedSlug) {
+  let slug = proposedSlug;
+  let counter = 1;
+  while (true) {
+    const existingBlog = await this.findOne({ slug });
+    if (!existingBlog) {
+      return slug;
+    }
+    slug = `${slug}-${counter}`;
+    counter++;
+  }
+};
 
 module.exports = mongoose.model("Blog", blogSchema);
